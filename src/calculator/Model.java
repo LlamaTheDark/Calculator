@@ -3,14 +3,14 @@ package calculator;
 import java.util.Arrays;
 
 public class Model {
-
+    
     static public final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
     Question question = new Question();
-
+    
     public Model() {
-
+        
     }
-
+    
     void reformat(Question question) { // remember PEMDAS
         int index = 0;
         boolean notDone = true;
@@ -27,38 +27,65 @@ public class Model {
     String evaluate(Question question) {
         // TODO: remember to add in parenthases and exponents later: remember order of operations
         reformat(question);
-        boolean finished = false;
+        
+        // TODO: you have to take care of parenthases first bruv...
         try {
-            while (!finished == true) {
+            while (true) {
 
                 // loop through every operation until you find the right operation, then do it. 
                 // Then loop again, if the loop reaches the end of the operations without 
                 // finding the right one, then move onto the next operation
-                int o = getOperationIndex("*", question);
+                int par = getOperationIndex("(", question);
+                if (par != 404) {
+                    ridParenthases(par, question);
+                }
+                for (int i = 0; i < question.getLength(); i++) {
+                    //System.out.print(question.getComponent(i) + " ");
+                }
+                
                 double result;
+
                 try {
+
+                    int o = getOperationIndex("^", question);
                     while (o != 404) {
-                        System.out.println("multiplication loop " + o);
+                        //System.out.println("multiplication loop " + o);
+
+                        result = power(Double.parseDouble(question.getComponent(o - 1)), Double.parseDouble(question.getComponent(o + 1)));
+                        question.setComponent(o - 1, Double.toString(result));
+                        question.removeComponent(o);
+                        question.removeComponent(o);
+
+                        o = getOperationIndex("^", question);
+                    }
+
+                    o = getOperationIndex("*", question);
+                    while (o != 404) {
+                        //System.out.println("multiplication loop " + o);
 
                         result = multiply(Double.parseDouble(question.getComponent(o - 1)), Double.parseDouble(question.getComponent(o + 1)));
                         question.setComponent(o - 1, Double.toString(result));
                         question.removeComponent(o);
                         question.removeComponent(o);
+
                         o = getOperationIndex("*", question);
                     }
+
                     o = getOperationIndex("÷", question);
                     while (o != 404) {
-                        System.out.println("division loop " + o);
+                        //System.out.println("division loop " + o);
 
                         result = divide(Double.parseDouble(question.getComponent(o - 1)), Double.parseDouble(question.getComponent(o + 1)));
                         question.setComponent(o - 1, Double.toString(result));
                         question.removeComponent(o);
                         question.removeComponent(o);
+
                         o = getOperationIndex("÷", question);
-                        
                     }
+
                     o = getOperationIndex("+", question);
                     while (o != 404) {
+                        //System.out.println("addition loop" + o);
 
                         result = add(Double.parseDouble(question.getComponent(o - 1)), Double.parseDouble(question.getComponent(o + 1)));
                         question.setComponent(o - 1, Double.toString(result));
@@ -66,39 +93,87 @@ public class Model {
                         question.removeComponent(o);
 
                         o = getOperationIndex("+", question); // it is returning 404 here... it shoudln't be
-                        System.out.println("addition loop " + o);
-                        System.out.println(question.getComponents());
-
                     }
+
                     o = getOperationIndex("–", question);
                     while (o != 404) {
-                        System.out.println("division loop " + o);
+                        //System.out.println("subtraction loop " + o);
 
                         result = subtract(Double.parseDouble(question.getComponent(o - 1)), Double.parseDouble(question.getComponent(o + 1)));
                         question.setComponent(o - 1, Double.toString(result));
                         question.removeComponent(o);
                         question.removeComponent(o);
+
                         o = getOperationIndex("–", question);
                     }
 
-                    System.out.println(question.getComponent(0) + " " + question.getComponent(1) + " " + question.getComponent(2));
                     return question.getComponent(0);
 
                 } catch (NumberFormatException n) {
-                    return "Error";
+                    return "Syntax Error type 1";
                 }
             }
         } catch (ArrayIndexOutOfBoundsException b) {
-            return "Error";
+            return "Syntax Error type 2";
         }
-
-        return "0.0";
     }
 
+    void ridParenthases(int parIndex, Question question) { // count the number of ( that you find on the way to ) and ignore one ) for every (
+        int openParCount = 0;
+        int closeParCount = 0;
+        int endParDistance = 0;
+        Question newQuestion = new Question();
+        int i = parIndex;
+        do {
+            
+            System.out.println(i);
+            if (question.getComponent(i).equals("(")) {
+                openParCount++;
+                System.out.println("open: " + openParCount);
+            }
+            if (question.getComponent(i).equals(")")) {
+                closeParCount++;
+                System.out.println("close " + closeParCount);
+            }
+            
+            newQuestion.appendComponent(question.getComponent(i));
+            
+            //System.out.println("open: " + openParCount + ", close: " + closeParCount);
+            endParDistance++;
+            i++;
+        } while (openParCount != closeParCount);
+        
+        System.out.println(endParDistance);
+        
+        newQuestion.removeComponent(newQuestion.getLength()); // removes parenthases from the newQuestion
+        newQuestion.removeComponent(0);
+        
+        question.setComponent(parIndex, evaluate(newQuestion));
+        
+        for (int j = 1; j < endParDistance; j++){
+            question.removeComponent(parIndex+1);
+        }
+        
+        /*
+        for (int j = 0; j <= question.getLength(); j++) {
+            System.out.print(question.getComponent(j) + " ");
+        }
+        */
+        
+        int par = getOperationIndex("(", question);
+        if (par != 404) {
+            ridParenthases(par, question);
+        }
+        
+        //System.out.println(newQuestion.getComponent(0) + " " + newQuestion.getComponent(1) + " " + newQuestion.getComponent(2));
+        //System.out.println(evaluate(newQuestion));
+        //System.out.println(question.getComponent(0) + " " + question.getComponent(1) + " " + question.getComponent(2));
+    }
+    
     int getOperationIndex(String Operation, Question question) {
-        System.out.println("–––––––new––––––");
+        //System.out.println("–––––––new––––––");
         for (int i = 0; i < question.getLength(); i++) {
-            System.out.println(question.getComponent(i) + Operation);
+            //System.out.println(question.getComponent(i) + Operation);
             if (question.getComponent(i).equals(Operation)) { // if the component in question is equal to the operation needed
                 return i;
             }

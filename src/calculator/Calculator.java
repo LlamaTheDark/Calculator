@@ -1,13 +1,41 @@
 
 package calculator;
 
+import java.util.Scanner;
+
 public class Calculator {
 
     public static void main(String[] args) {
         Model model = new Model();
         
-        ViewController viewController = new ViewController(model);
-        viewController.setVisible(true);
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter what you would like to do (calculate/graph): ");
+        switch(input.nextLine()){
+            
+            case "calculate":
+                
+                ViewController viewController = new ViewController(model);
+                viewController.setVisible(true);
+                
+                break;
+            
+            case "graph":
+                
+                final GraphModel graphModel = new GraphModel();
+                
+                GraphingTool gt = new GraphingTool(graphModel);
+                
+                
+                break;
+                
+            default:
+                
+                
+                
+                break;
+        }
+        
+        
     }
     
 }

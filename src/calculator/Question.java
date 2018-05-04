@@ -10,8 +10,8 @@ public class Question {
     
     public static void main(String[] args){        
         
-        int[] balls = {0, 1, 2};
-        System.out.println(balls[4]);
+        //int[] balls = {0, 1, 2};
+        //System.out.println(balls[4]);
         
         
         /*
@@ -40,7 +40,7 @@ public class Question {
     }
     
     String[] getComponents(){
-        System.out.println(Length);
+        //System.out.println(Length);
         return Arrays.copyOfRange(Components, 0, Length);
     }
     
@@ -90,3 +90,7 @@ public class Question {
         return String.join("", Arrays.copyOfRange(Components, 0, Length));
     }
 }
+
+
+// make some value that will change based on whether or not an open parenthases was placed and have all values after that be a part of that parenthases group until the 
+// close parenthases has been pressed.
