@@ -4,7 +4,8 @@ package calculator;
 import java.util.Scanner;
 
 public class Calculator {
-
+    
+    
     public static void main(String[] args) {
         Model model = new Model();
         
@@ -18,13 +19,11 @@ public class Calculator {
                 viewController.setVisible(true);
                 
                 break;
-            
+                
             case "graph":
                 
-                final GraphModel graphModel = new GraphModel();
-                
-                GraphingTool gt = new GraphingTool(graphModel);
-                
+                ViewControllerGraph graph = new ViewControllerGraph(model);
+                graph.setVisible(true);
                 
                 break;
                 

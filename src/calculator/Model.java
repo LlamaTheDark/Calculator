@@ -1,35 +1,40 @@
 package calculator;
 
+//import java.util.Arrays;
+
 import java.util.Arrays;
+
 
 public class Model {
     
     static public final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
-    Question question = new Question();
+    Question question = new Question(100);
     
     public Model() {
         
     }
     
     void reformat(Question question) { // remember PEMDAS
-        int index = 0;
-        boolean notDone = true;
-
-        Question newAndBetterQuestion = new Question();
-
+        
         // splits the equation by it's operators to identify multi-digit numbers
         final String[] splitQuestion = question.toString().split(String.format(WITH_DELIMITER, "[(\\)\\*\\÷\\+\\–\\^]"));
         question.clearComponents(question);
         question.setQuestion(question, splitQuestion);
-
+        
     }
-
+    
+    Question replaceX(Question question){
+        return new Question(100);
+    }
+    
     String evaluate(Question question) {
+        
         // TODO: remember to add in parenthases and exponents later: remember order of operations
         reformat(question);
         
         // TODO: you have to take care of parenthases first bruv...
         try {
+            
             while (true) {
 
                 // loop through every operation until you find the right operation, then do it. 
@@ -106,8 +111,13 @@ public class Model {
 
                         o = getOperationIndex("–", question);
                     }
-
-                    return question.getComponent(0);
+                    if(question.getComponent(0).equals("")){
+                        return "0";
+                    }else{
+                        return question.getComponent(0);
+                    }
+                        
+                        
 
                 } catch (NumberFormatException n) {
                     return "Syntax Error type 1";
@@ -122,18 +132,18 @@ public class Model {
         int openParCount = 0;
         int closeParCount = 0;
         int endParDistance = 0;
-        Question newQuestion = new Question();
+        Question newQuestion = new Question(100);
         int i = parIndex;
         do {
             
-            System.out.println(i);
+            //System.out.println(i);
             if (question.getComponent(i).equals("(")) {
                 openParCount++;
-                System.out.println("open: " + openParCount);
+                //System.out.println("open: " + openParCount);
             }
             if (question.getComponent(i).equals(")")) {
                 closeParCount++;
-                System.out.println("close " + closeParCount);
+                //System.out.println("close " + closeParCount);
             }
             
             newQuestion.appendComponent(question.getComponent(i));
@@ -143,7 +153,7 @@ public class Model {
             i++;
         } while (openParCount != closeParCount);
         
-        System.out.println(endParDistance);
+        //System.out.println(endParDistance);
         
         newQuestion.removeComponent(newQuestion.getLength()); // removes parenthases from the newQuestion
         newQuestion.removeComponent(0);
@@ -154,11 +164,11 @@ public class Model {
             question.removeComponent(parIndex+1);
         }
         
-        /*
-        for (int j = 0; j <= question.getLength(); j++) {
+        
+        /*for (int j = 0; j <= question.getLength(); j++) {
             System.out.print(question.getComponent(j) + " ");
-        }
-        */
+        }*/
+        
         
         int par = getOperationIndex("(", question);
         if (par != 404) {
@@ -197,23 +207,46 @@ public class Model {
         return question.toString();
     }
 
-    double add(double comp1, double comp2) {
-        return comp1 + comp2;
+    double add(double comp1, double comp2/*, boolean graphing*/) {
+        /*if (graphing){
+            return (comp1 + comp2) * 10;
+        }else{*/
+            return comp1 + comp2;
+        //}
     }
-
+    
     double subtract(double comp1, double comp2) {
         return comp1 - comp2;
     }
-
+    
     double multiply(double comp1, double comp2) {
         return comp1 * comp2;
     }
-
+    
     double divide(double comp1, double comp2) {
         return comp1 / comp2;
     }
-
+    
     double power(double comp1, double comp2) {
         return Math.pow(comp1, comp2);
     }
+    
+    Question stringToQuestion(String stringQuestion){
+        String[] listString = stringQuestion.split(String.format(WITH_DELIMITER, "[(\\)\\*\\÷\\+\\–\\^]"));
+        
+        //for(String i: listString){
+        //    System.out.println(i);
+        //}
+        
+        Question newQuestion = new Question(listString.length);
+        for(String i: listString){
+            newQuestion.appendComponent(i);
+        }
+        
+        return newQuestion;
+    }
+    
+    
+    
+    
 }
