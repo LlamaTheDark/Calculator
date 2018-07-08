@@ -11,6 +11,9 @@ public class Calculator {
         
         Scanner input = new Scanner(System.in);
         System.out.println("Please enter what you would like to do (calculate/graph): ");
+        
+        
+        
         switch(input.nextLine()){
             
             case "calculate":

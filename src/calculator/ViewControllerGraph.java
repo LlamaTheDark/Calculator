@@ -50,6 +50,7 @@ public class ViewControllerGraph extends javax.swing.JFrame {
         btnQuit = new javax.swing.JButton();
         lblScale = new javax.swing.JLabel();
         txtScale = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel12.setText(" y1 = ");
 
@@ -112,6 +113,11 @@ public class ViewControllerGraph extends javax.swing.JFrame {
         });
 
         btnQuit.setText("QUIT");
+        btnQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitActionPerformed(evt);
+            }
+        });
 
         lblScale.setText("Scale:");
 
@@ -121,6 +127,8 @@ public class ViewControllerGraph extends javax.swing.JFrame {
                 txtScaleActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("<– (Number of Pixels Per Unit)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,9 +149,12 @@ public class ViewControllerGraph extends javax.swing.JFrame {
                             .addComponent(lblScale)
                             .addComponent(JLabelY1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtY1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtScale, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtScale)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -157,7 +168,8 @@ public class ViewControllerGraph extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtScale, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblScale))
+                    .addComponent(lblScale)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,8 +190,12 @@ public class ViewControllerGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_txtY1ActionPerformed
 
     private void txtScaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtScaleActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtScaleActionPerformed
+
+    private void btnQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnQuitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JLabelY1;
@@ -189,6 +205,7 @@ public class ViewControllerGraph extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

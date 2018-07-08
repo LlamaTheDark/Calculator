@@ -2,19 +2,22 @@ package calculator;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
+/*import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JComboBox;
+*/
 import javax.swing.JFrame;
 
 public class GraphModel extends JFrame {
     
     double x, y;
     double ax, by;
+    int graphx, graphy;
     int dippleplo = 1;
     int scale;
+    double scaleIncrementOut, scaleIncrementIn;
     
     Question[] Y = new Question[10];
     Question Yx;
@@ -29,17 +32,25 @@ public class GraphModel extends JFrame {
         this.graphingWindow = graphingWindow;
         this.model = model;
         
+        Question scaleIncrementInQ = new Question(100);
+        scaleIncrementInQ.appendComponent("1");
+        scaleIncrementInQ.appendComponent("÷");
+        scaleIncrementInQ.appendComponent(Integer.toString(scale));
+        
+        scaleIncrementIn = Double.parseDouble(this.model.evaluate(scaleIncrementInQ));
+
+        scaleIncrementOut = 0.1;
+        
         Y[1] = graphingWindow.getQuestion();
         
-        
+        graphy = 300;
         
         setTitle("Graph App");
-        setSize(600, 600); // remember to add 20 to every y value
+        setSize(600, 600);
         setVisible(true);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        x = 49;
-        y = 300;
+        x = 0;
     }
     
     public void paint(Graphics g) {
@@ -60,50 +71,48 @@ public class GraphModel extends JFrame {
         }
         
         g.setColor(Color.red);
-        //paintY1();
-        /*
-        if(y > 50 && y < 550){
-            System.out.println(x + ((x-300)*scale) + ", " + y + ((y-300)*scale));
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
+
+        paintY1();
+        
+        graphx = (int)(x+((x-300)*scale));
+        graphy = (int)(y+((y-300)*scale));
+        
+        if(graphy > 50 && graphy < 550 && graphx > 50 && graphx < 550){
+            g.fillOval(graphx, graphy, 2, 2);
         }
-        repaint();
-        */
-        
-        g.fillOval(50, 50, 5, 5);
-        repaint();
-        
+        if(graphx < 600){
+            repaint();
+        }
     }
     
     public void paintY1() {
         Yx = new Question(Y[1].getLength());
         
         try {
-            
-            //System.out.println(x + ", " + y);
-            
             Thread.sleep(10);
         
-            if (x < 549) {
+            if (x < 600) {
                 ax = x - 300;
-                by = y - 300;
                 
-                if(y > 50 && y < 550){
-                    ax = ax + 0.09;
+                System.out.println("x at: "+ ax);
+                
+                if(graphx < -1000 || graphx > 600){
+                    ax = ax + (scale/10)+1;
+                }else if(graphy > 0 && graphy < 600){
+                    ax = ax + scaleIncrementIn;
                 }else{
-                    ax = ax + 1;
+                    ax = ax + scaleIncrementOut;
                 }
-                
+                    
                 Yx.setQuestion(Yx, Y[1].getComponents());
                 
                 Yx.replaceX(Yx, Double.toString(ax));
-               
                 
                 
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                System.out.println(ax + ", "+model.evaluate(Yx));
+                by = Double.parseDouble(model.evaluate(Yx)); 
                 
-                x = 300 + ax;
-                y = 300 - by;
+                x = ax + 300;
+                y = -by + 300;
                 
             }
             
