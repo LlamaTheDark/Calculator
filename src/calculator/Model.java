@@ -23,9 +23,6 @@ public class Model {
         
     }
     
-    Question replaceX(Question question){
-        return new Question(100);
-    }
     
     String evaluate(Question question) {
         
@@ -163,21 +160,12 @@ public class Model {
         for (int j = 1; j < endParDistance; j++){
             question.removeComponent(parIndex+1);
         }
-        
-        
-        /*for (int j = 0; j <= question.getLength(); j++) {
-            System.out.print(question.getComponent(j) + " ");
-        }*/
-        
-        
+
         int par = getOperationIndex("(", question);
         if (par != 404) {
             ridParenthases(par, question);
         }
-        
-        //System.out.println(newQuestion.getComponent(0) + " " + newQuestion.getComponent(1) + " " + newQuestion.getComponent(2));
-        //System.out.println(evaluate(newQuestion));
-        //System.out.println(question.getComponent(0) + " " + question.getComponent(1) + " " + question.getComponent(2));
+
     }
     
     int getOperationIndex(String Operation, Question question) {

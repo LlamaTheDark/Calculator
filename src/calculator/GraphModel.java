@@ -44,17 +44,7 @@ public class GraphModel extends JFrame {
     
     public void paint(Graphics g) {
         g.setColor(Color.BLACK);
-        /*
-        g.drawString("Y", 260, 30);
-        g.drawString("Y'", 260, 490);
-        g.drawString("X'", 10, 260);
-        g.drawString("X", 490, 260);
-        if (x == 250 && y == 250) {
-            g.drawString("Origin(0,0)", 250, 250);
-        }
-        */
-        // origin (0, 0) = (300, 300)  
-        
+
         while(dippleplo==1){
             g.drawLine(50, 300, 550, 300);
             g.drawLine(300, 50, 300, 550);  
@@ -67,93 +57,19 @@ public class GraphModel extends JFrame {
                 g.drawLine(i, 295, i, 305);
                 g.drawLine(295, i, 305, i);
             }
-            /*for(int i = 50; i < 550; i = i + 10){
-                g.drawLine(295, i, 305, i);
-            }*/
         }
         
         g.setColor(Color.red);
-        paintY1();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        System.out.println(x + ", " + y);
+        //paintY1();
         /*
-        
-        g.setColor(Color.blue);
-        paintY2();
         if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
+            System.out.println(x + ((x-300)*scale) + ", " + y + ((y-300)*scale));
             g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
         }
+        repaint();
+        */
         
-        
-        g.setColor(Color.green);
-        paintY3();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.orange);
-        paintY4();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.black);
-        paintY5();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.magenta);
-        paintY6();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.white);
-        paintY7();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.blue);
-        paintY8();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.yellow);
-        paintY9();
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }
-        
-        
-        g.setColor(Color.pink);
-        paintY0();
-        
-        
-        //g.fillOval(49, 300, 5, 5);
-        if(y > 50 && y < 550){
-            //System.out.println("y: "+ y);
-            g.fillOval((int)(x + ((x-300)*scale)), (int)(y + ((y-300)*scale)), 2, 2);
-        }*/
+        g.fillOval(50, 50, 5, 5);
         repaint();
         
     }
@@ -172,84 +88,20 @@ public class GraphModel extends JFrame {
                 by = y - 300;
                 
                 if(y > 50 && y < 550){
-                    ax = ax + 0.01;
+                    ax = ax + 0.09;
                 }else{
-                    ax = ax + 2;
+                    ax = ax + 1;
                 }
                 
                 Yx.setQuestion(Yx, Y[1].getComponents());
                 
                 Yx.replaceX(Yx, Double.toString(ax));
+               
+                
                 
                 by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
+                System.out.println(ax + ", "+model.evaluate(Yx));
                 
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-    
-    public void paintY2() {
-        Yx = new Question(Y[2].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[2].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-    
-    public void paintY3() {
-        Yx = new Question(Y[3].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[3].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
                 x = 300 + ax;
                 y = 300 - by;
                 
@@ -260,244 +112,4 @@ public class GraphModel extends JFrame {
         }
     }
 
-    public void paintY4() {
-        Yx = new Question(Y[4].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[4].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
-    public void paintY5() {
-        Yx = new Question(Y[5].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[5].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
-    public void paintY6() {
-        Yx = new Question(Y[6].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[6].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
-    public void paintY7() {
-        Yx = new Question(Y[7].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[7].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
-    public void paintY8() {
-        Yx = new Question(Y[8].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[8].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
-    public void paintY9() {
-        Yx = new Question(Y[9].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[9].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-
-    public void paintY0() {
-        Yx = new Question(Y[0].getLength());
-        
-        try {
-            
-            //System.out.println(x + ", " + y);
-            
-            Thread.sleep(10);
-        
-            if (x < 549) {
-                ax = x - 300;
-                by = y - 300;
-                
-                if(y > 50 && y < 550){
-                    ax = ax + 0.01;
-                }else{
-                    ax = ax + 0.5;
-                }
-                
-                Yx.setQuestion(Yx, Y[0].getComponents());
-                
-                Yx.replaceX(Yx, Double.toString(ax));
-                
-                by = Double.parseDouble(model.evaluate(Yx));  /* + 3*10*/; // parabola 
-                x = 300 + ax;
-                y = 300 - by;
-                
-            }
-            
-        } catch (Exception e) {
-            System.out.println("ERROR");
-        }
-    }
-    
-    
-    
 }

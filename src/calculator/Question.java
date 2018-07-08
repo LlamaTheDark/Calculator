@@ -7,39 +7,8 @@ import java.util.List;
 public class Question {
     private int Length = 0;
     private String[] Components;
-    //static public final String WITH_DELIMITER = "((?<=%1$s)|(?=%1$s))";
+   
     
-    public static void main(String[] args){        
-        
-        //int[] balls = {0, 1, 2};
-        //System.out.println(balls[4]);
-        
-        
-        /*
-        try {
-            Integer.parseInt("r");
-        }^
-        catch (NumberFormatException n){
-            System.out.println("please enter a number");
-        }
-        
-        
-        
-        Question q = new Question();
-        q.appendComponent("1");
-        q.appendComponent("1");
-        q.appendComponent("+");
-        q.appendComponent("2");
-        
-        String[] splitEquation = q.toString().split("[(\\)\\*\\÷\\+\\-\\^]");
-        System.out.println(String.join(" ", splitEquation));
-        //System.out.println(Arrays.toString(q.toString().split("((?<=[(\\)\\*\\÷\\+\\-\\^])|(?=[(\\)\\*\\÷\\+\\-\\^]))")).split("[\\,\\]"));
-        
-        final String[] aEach = q.toString().split(String.format(WITH_DELIMITER, "[(\\)\\*\\÷\\+\\-\\^]"));
-        System.out.println(String.join(" ", aEach));
-        //System.out.println(Integer.parseInt(q.Components[0])+Integer.parseInt(q.Components[2]));
-        */
-    }
     
     public Question(int compLength){
         Components = new String[compLength];
@@ -112,11 +81,6 @@ public class Question {
             }
             
         }
-        
-        //for (String i: Components){
-        //    System.out.println(i);
-        //}
-        
     }
     
 }
